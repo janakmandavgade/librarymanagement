@@ -1,98 +1,135 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-<style media="screen">
-table.redTable {
-border: 2px solid #A40808;
-background-color: #EEE7DB;
-width: 100%;
-text-align: center;
-border-collapse: collapse;
-}
-table.redTable td, table.redTable th {
-border: 1px solid #AAAAAA;
-padding: 3px 2px;
-}
-table.redTable tbody td {
-font-size: 13px;
-}
-table.redTable tr:nth-child(even) {
-background: #F5C8BF;
-}
-table.redTable thead {
-background: #A40808;
-}
-table.redTable thead th {
-font-size: 19px;
-font-weight: bold;
-color: #FFFFFF;
-text-align: center;
-border-left: 2px solid #A40808;
-}
-table.redTable thead th:first-child {
-border-left: none;
-}
+    <style media="screen">
+      table.redTable {
+        border: 2px solid #d50d0d;
+        background-color: #1ddcf541;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+      }
+      table.redTable td,
+      table.redTable th {
+        border: 1px solid #aaaaaa;
+        padding: 3px 2px;
+      }
+      table.redTable tbody td {
+        font-size: 13px;
+      }
+      table.redTable tr:nth-child(even) {
+        background: #ffffff;
+      }
+      table.redTable thead {
+        background: #d50d0d;
+      }
+      table.redTable thead th {
+        font-size: 19px;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        border-left: 2px solid #d50d0d;
+      }
+      table.redTable thead th:first-child {
+        border-left: none;
+      }
 
-table.redTable tfoot {
-font-size: 13px;
-font-weight: bold;
-color: #FFFFFF;
-background: #A40808;
-}
-table.redTable tfoot td {
-font-size: 13px;
-}
-table.redTable tfoot .links {
-text-align: right;
-}
-table.redTable tfoot .links a{
-display: inline-block;
-background: #FFFFFF;
-color: #A40808;
-padding: 2px 8px;
-border-radius: 5px;
-}
-</style>
+      table.redTable tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #ffffff;
+        background: #d50d0d;
+      }
+      table.redTable tfoot td {
+        font-size: 13px;
+      }
+      table.redTable tfoot .links {
+        text-align: right;
+      }
+      table.redTable tfoot .links a {
+        display: inline-block;
+        background: #ffffff;
+        color: #d50d0d;
+        padding: 2px 8px;
+        border-radius: 5px;
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/4bdc103010.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   </head>
   <body>
     {% include "library/navbaradmin.html" %}
-    <br>
-    <br>
-    <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 50px;text-align:center;'>Available Book in Library !</h3>
-{% if books%}
-<table class="redTable">
-<thead>
-<tr>
-<th>Book Name</th>
-<th>ISBN</th>
-<th>Author</th>
-<th>Category</th>
-</tr>
-</thead>
-<tfoot>
-<tr>
-<td colspan="4" rowspan="4">
-<div class="links"></div>
-</td>
-</tr>
-</tfoot>
-<tbody>
-  {% for book in books %}
-    <tr>
-      <td>{{book.name}}</td>
-      <td>{{book.isbn}}</td>
-      <td>{{book.author}}</td>
-      <td>{{book.category}}</td>
-    </tr>
-  {% endfor %}
-</tbody>
-</table>
-{%else%}
-<h1>Have 0 book</h1>
-{%endif%}
+    <br />
+    <br />
+    <h3
+      class="p-3 mb-2 bg-primary text-white"
+      style="font-size: 50px; text-align: center"
+    >
+      Available Book in Library !
+    </h3>
+    {% if books%}
+    <table class="redTable">
+      <thead>
+        <tr>
+          <th>Book Name</th>
+          <th>ISBN</th>
+          <th>Author</th>
+          <th>Category</th>
+          <th>IDS</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="7" rowspan="4">
+            <div class="links"></div>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        {% for book in books %}
+        <tr>
+          <td>{{book.name}}</td>
+          <td>{{book.isbn}}</td>
+          <td>{{book.author}}</td>
+          <td>{{book.category}}</td>
+          <td>{{book.id}}</td>
+          <td>
+            <a
+              class="btn btn-sm btn-info"
+              href="http://127.0.0.1:8000/editBook/{{book.id}}"
+              name="editbtn"
+            >
+              <!-- <a class="btn btn-sm btn-info" href="http://127.0.0.1:8000/editBook" name="editbtn"></a> -->
+              <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+          </td>
+          <td>
+            <a
+              class="btn btn-sm btn-info"
+              href="http://127.0.0.1:8000/deleteBook/{{book.id}}"
+              name="deletebtn"
+            >
+              <i class="fa-solid fa-trash"> </i
+            ></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%else%}
+    <h1>Have 0 book</h1>
+    {%endif%}
 
-
-<br><br><br><br><br><br><br><br><br>
-    {% include "library/footer.html" %}
+    <br /><br /><br /><br /><br /><br /><br /><br /><br />
   </body>
 </html>
